@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Filme;
 use App\Http\Controllers\Controller;
 use App\Models\Filme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilmeController extends Controller
 {
@@ -22,17 +23,17 @@ class FilmeController extends Controller
         $filme->amount = $request->amount;
         $filme->price = $request->price;
 
-        if ($request->hasFile('image')) {
-            $fileName = hash('sha256', $request->file('image')->getClientOriginalName());
-            $extension = $request->file('image')->getClientOriginalExtension();
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $requestImage = $request->image;
 
-            $finalFileName = $fileName.'-'.time().'.'.$extension;
-            $request->file('image')->storeAs('public/images', $finalFileName);
+            $imageName = md5($requestImage->getclientOriginalName() . strtotime("now")) . "." . $request->image->getClientOriginalExtension();
+
+            $request->image->move(public_path('/images'), $imageName);
+
+            $filme->image = $imageName;
         } else {
-            $finalFileName = 'capa_padrao.jpg';
+            $filme->image = "capa_padrao.jpg";
         }
-
-        $filme->image = $finalFileName;
 
         $filme->save();
 
@@ -70,6 +71,19 @@ class FilmeController extends Controller
         $filme->amount = $request->amount;
         $filme->price = $request->price;
 
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($filme->image != "capa_padrao.jpg") {
+                unlink(public_path('images/' . $filme->image));
+            }
+            $requestImage = $request->image;
+
+            $imageName = md5($requestImage->getclientOriginalName() . strtotime("now")) . "." . $request->image->getClientOriginalExtension();
+
+            $request->image->move(public_path('/images'), $imageName);
+
+            $filme->image = $imageName;
+        }
+
         $filme->update();
 
         return redirect()->route('list.film');
@@ -79,8 +93,12 @@ class FilmeController extends Controller
     {
         $filme = Filme::findOrFail($id);
 
+        if ($filme->image != "capa_padrao.jpg") {
+            unlink(public_path('images/' . $filme->image));
+        }
+
         $filme->delete();
 
-        return redirect('/');
+        return redirect()->route('list.film');
     }
 }
