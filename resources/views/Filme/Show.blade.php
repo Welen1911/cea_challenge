@@ -1,3 +1,5 @@
+@include('Filme.Components.header')
+
 <h1>Titulo:</h1>
 <p>{{ $filme->title }}</p>
 <h2>ID:</h2>
