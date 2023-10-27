@@ -3,15 +3,25 @@
 namespace App\Http\Controllers\Filme;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use App\Models\Filme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class FilmeController extends Controller
 {
+    public function index()
+    {
+        $filmes = Filme::all();
+        $categorias = Categoria::all();
+
+        return view('Filme.Listar', compact('filmes', 'categorias'));
+    }
+
     public function create()
     {
-        return view('Filme.cadastro');
+        $categorias = Categoria::all();
+        return view('Filme.cadastro', compact('categorias'));
     }
 
     public function store(Request $request)
@@ -22,6 +32,7 @@ class FilmeController extends Controller
         $filme->description = $request->description;
         $filme->amount = $request->amount;
         $filme->price = $request->price;
+        $filme->categoria = $request->categoria;
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $requestImage = $request->image;
@@ -38,14 +49,6 @@ class FilmeController extends Controller
         $filme->save();
 
         return redirect()->route('list.film');
-    }
-
-
-    public function index()
-    {
-        $filmes = Filme::all();
-
-        return view('Filme.Listar', ['filmes' => $filmes]);
     }
 
     public function show(string $id)

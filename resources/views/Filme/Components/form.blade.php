@@ -22,5 +22,11 @@
         <label for="">Capa:</label>
         <input type="file" id="" name="image">
     </div>
-
+    <div class="form-group">
+        <select class="form-control" name="categoria">
+            @foreach ($categorias as $categoria)
+                <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+            @endforeach
+        </select>
+    </div>
     <button type="submit" class="btn btn-dark">Submit</button>
