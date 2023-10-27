@@ -3,11 +3,11 @@
 <div class="container d-flex justify-content-center">
     @foreach ($filmes as $filme)
     <div class="card col" style="width: 18rem; margin-left: 15px; margin-right: 15px">
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <img class="card-img-top" src='{{ asset("storage/images/$filme->image") }}' alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <h5 class="card-title">{{ $filme->title }}</h5>
+          <p class="card-text">{{ $filme->description }}</p>
+          <a href="{{ route('show.film', $filme->id) }}" class="btn btn-primary">Ver mais</a>
         </div>
       </div>
     @endforeach

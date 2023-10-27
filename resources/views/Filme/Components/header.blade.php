@@ -30,7 +30,7 @@
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
                     <a class="nav-item nav-link active" href="#" aria-current="page">Home</a>
-                    <a class="nav-item nav-link" href="#">Product</a>
+                    <a class="nav-item nav-link" href="{{ route('create.film') }}">Cadastrar</a>
                     <a class="nav-item nav-link" href="#">Features</a>
                     <a class="nav-item nav-link" href="#">Pricing</a>
                 </div>
@@ -47,7 +47,6 @@
             </div>
         </div>
     </nav>
-
 </body>
 
 </html>

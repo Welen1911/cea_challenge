@@ -1,4 +1,5 @@
     @csrf
+    Capa: <input type="file" name="image">
     <input type="text" placeholder="Título" name="title" value="{{ $filme->title ?? old('title') }}">
     <textarea name="description" id="" cols="30" rows="10" placeholder="Descrição">{{ $filme->description ?? old('description') }}</textarea>
     <input type="number" placeholder="QTD" name="amount" value="{{ $filme->amount ?? old('amount') }}">

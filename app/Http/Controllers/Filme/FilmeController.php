@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class FilmeController extends Controller
 {
-    public function create() {
+    public function create()
+    {
         return view('Filme.cadastro');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $filme = new Filme();
 
         $filme->title = $request->title;
@@ -20,31 +22,47 @@ class FilmeController extends Controller
         $filme->amount = $request->amount;
         $filme->price = $request->price;
 
+        if ($request->hasFile('image')) {
+            $fileName = hash('sha256', $request->file('image')->getClientOriginalName());
+            $extension = $request->file('image')->getClientOriginalExtension();
+
+            $finalFileName = $fileName.'-'.time().'.'.$extension;
+            $request->file('image')->storeAs('public/images', $finalFileName);
+        } else {
+            $finalFileName = 'capa_padrao.jpg';
+        }
+
+        $filme->image = $finalFileName;
+
         $filme->save();
 
         return redirect()->route('list.film');
     }
 
 
-    public function index() {
+    public function index()
+    {
         $filmes = Filme::all();
 
         return view('Filme.Listar', ['filmes' => $filmes]);
     }
 
-    public function show(string $id) {
+    public function show(string $id)
+    {
         $filme = Filme::findOrFail($id);
 
         return view('Filme.Show', ['filme' => $filme]);
     }
 
-    public function edit(string $id) {
+    public function edit(string $id)
+    {
         $filme = Filme::findOrFail($id);
 
         return view('Filme.Edit', ['filme' => $filme]);
     }
 
-    public function update(string $id, Request $request) {
+    public function update(string $id, Request $request)
+    {
         $filme = Filme::findOrFail($id);
 
         $filme->title = $request->title;
@@ -57,7 +75,8 @@ class FilmeController extends Controller
         return redirect()->route('list.film');
     }
 
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
         $filme = Filme::findOrFail($id);
 
         $filme->delete();
