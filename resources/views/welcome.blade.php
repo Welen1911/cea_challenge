@@ -30,3 +30,4 @@
         </div>
     @endforeach
 </div>
+@include('Filme.Components.footer')
