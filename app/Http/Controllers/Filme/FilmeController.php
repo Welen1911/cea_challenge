@@ -24,9 +24,11 @@ class FilmeController extends Controller
                     'name', 'like', '%' . $search . '%'
                 ]])->first();
 
-                $filmes = Filme::where([[
-                    'categoria', '=', $categoria->id
-                ]])->get();
+                if ($categoria) {
+                    $filmes = Filme::where([[
+                        'categoria', '=', $categoria->id
+                    ]])->get();
+                } else return redirect()->route('list.film');
             }
         } else {
             $filmes = Filme::all();
@@ -123,5 +125,17 @@ class FilmeController extends Controller
         $filme->delete();
 
         return redirect()->route('list.film');
+    }
+
+    public function buy(Request $request, string $id)
+    {
+        $filme = Filme::findOrFail($id);
+        if ($filme->amount == 0 || $request->amount > $filme->amount) {
+            dd("Deu errado!");
+        } else {
+            $filme->amount -= $request->amount;
+            $filme->update();
+        }
+        return redirect('/dashboard');
     }
 }

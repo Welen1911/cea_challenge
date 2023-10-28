@@ -22,13 +22,13 @@ Route::post('/cadastrar_filme', [FilmeController::class, 'store'])->name('create
 
 Route::get('/show_filme/{id}', [FilmeController::class, 'show'])->name('show.film');
 
-
-
 Route::delete('/delete_filme/{id}', [FilmeController::class, 'destroy'])->name('delete.film');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/atualizar_filme/{id}', [FilmeController::class, 'edit'])->name('edit.film');
     Route::put('/atualizar_filme/{id}', [FilmeController::class, 'update'])->name('update.film');
+
+    Route::put('/show_filme/{id}', [FilmeController::class, 'buy'])->name('buy.film');
 });
 
 Route::middleware([

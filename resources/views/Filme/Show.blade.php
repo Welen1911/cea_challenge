@@ -13,10 +13,12 @@
                 </div>
                 <p class="lead">{{ $filme->description }}</p>
                 <div class="d-flex">
-                    <form action="" method="post">
+                    <form action="{{ route('buy.film', $filme->id) }}" method="post" class="form-group">
+                        @csrf
+                        @method('PUT')
                         <input class="form-control text-center me-3" type="num"
-                            value="{{ $filme->amount }}" style="max-width: 3rem" />
-                        <button class="btn btn-primary flex-shrink-0" type="button">
+                            value="1" style="max-width: 3rem" name="amount" />
+                        <button class="btn btn-primary flex-shrink-0" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Comprar
                         </button>
