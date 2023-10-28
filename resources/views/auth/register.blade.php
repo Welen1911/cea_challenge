@@ -29,6 +29,11 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+            <div class="mt-4">
+                <x-label for="password_confirmation" value="Tipo:" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="text" name="tipo_conta"/>
+            </div>
+
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-label for="terms">

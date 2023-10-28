@@ -23,9 +23,6 @@
                 <h5 class="card-title">{{ $filme->title }}</h5>
                 <p class="card-text">{{ $filme->description }}</p>
                 <a href="{{ route('show.film', $filme->id) }}" class="btn btn-primary">Ver mais</a>
-                @auth
-                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-primary">Editar</a>
-                @endauth
             </div>
         </div>
     @endforeach
