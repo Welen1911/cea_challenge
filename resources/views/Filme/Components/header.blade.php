@@ -30,20 +30,33 @@
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
                     <a class="nav-item nav-link active" href="#" aria-current="page">Home</a>
-                    <a class="nav-item nav-link" href="{{ route('create.film') }}">Cadastrar</a>
-                    <a class="nav-item nav-link" href="#">Features</a>
-                    <a class="nav-item nav-link" href="#">Pricing</a>
+                    @auth
+                        <a class="nav-item nav-link" href="{{ route('create.film') }}">Cadastrar</a>
+                    @endauth
+                    <a class="nav-item nav-link" href="/dashboard" aria-current="page">Dashboard</a>
+
                 </div>
+
                 <!-- Right navigation -->
-                <div class="navbar-nav ms-lg-4">
-                    <a class="nav-item nav-link" href="#">Sign in</a>
-                </div>
+                @guest
+                    <div class="navbar-nav ms-lg-4">
+                        <a class="nav-item nav-link" href="/login">Login</a>
+                    </div>
+                    <!-- Action -->
+                    <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
+                        <a href="/register" class="btn btn-sm btn-primary w-full w-lg-auto">
+                            Registra-se
+                        </a>
+                    </div>
+                @endguest
+                @auth
                 <!-- Action -->
                 <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
-                    <a href="#" class="btn btn-sm btn-primary w-full w-lg-auto">
-                        Register
+                    <a href="/user/profile" class="btn btn-sm btn-primary w-full w-lg-auto">
+                        {{ auth()->user()->name }}
                     </a>
                 </div>
+                @endauth
             </div>
         </div>
     </nav>

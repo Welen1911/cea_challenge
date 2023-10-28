@@ -12,10 +12,28 @@ class FilmeController extends Controller
 {
     public function index()
     {
-        $filmes = Filme::all();
+        $search = request('search');
+        $searchCategory = request('categoria');
+
+        if ($search) {
+            $filmes = Filme::where([
+                ['title', 'like', '%' . $search . '%']
+            ])->get();
+            if (count($filmes) == 0) {
+                $categoria = Categoria::where([[
+                    'name', 'like', '%' . $search . '%'
+                ]])->first();
+
+                $filmes = Filme::where([[
+                    'categoria', '=', $categoria->id
+                ]])->get();
+            }
+        } else {
+            $filmes = Filme::all();
+        }
         $categorias = Categoria::all();
 
-        return view('Filme.Listar', compact('filmes', 'categorias'));
+        return view('welcome', compact('filmes', 'categorias'));
     }
 
     public function create()
