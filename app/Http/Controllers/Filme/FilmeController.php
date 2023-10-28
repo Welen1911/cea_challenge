@@ -61,8 +61,9 @@ class FilmeController extends Controller
     public function edit(string $id)
     {
         $filme = Filme::findOrFail($id);
+        $categorias = Categoria::all();
 
-        return view('Filme.Edit', ['filme' => $filme]);
+        return view('Filme.Edit', compact('filme', 'categorias'));
     }
 
     public function update(string $id, Request $request)
@@ -73,6 +74,7 @@ class FilmeController extends Controller
         $filme->description = $request->description;
         $filme->amount = $request->amount;
         $filme->price = $request->price;
+        $filme->categoria = $request->categoria;
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if ($filme->image != "capa_padrao.jpg") {
