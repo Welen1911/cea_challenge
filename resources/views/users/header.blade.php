@@ -18,7 +18,7 @@
         <div class="container-xl">
             <!-- Logo -->
             <a class="navbar-brand" href="#">
-                Filmes
+                Dashboard
             </a>
             <!-- Navbar toggle -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -29,37 +29,28 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
-                    <a class="nav-item nav-link active" href="#" aria-current="page">Home</a>
-                    <a class="nav-item nav-link" href="/dashboard" aria-current="page">Dashboard</a>
+                    <a class="nav-item nav-link" href="/" aria-current="page">Home</a>
+                    @auth
+                        <a class="nav-item nav-link" href="{{ route('create.film') }}">Cadastrar</a>
+                    @endauth
                 </div>
-                <div class="navbar-nav mx-lg-auto">
-                    <form action="{{ route('list.film') }}" method="GET">
-                        <input type="search" placeholder="Pesquisa titulo" name="search" class="form-control">
-                </div>
-                </form>
-            </div>
 
-            <!-- Right navigation -->
-            @guest
-                <div class="navbar-nav ms-lg-4">
-                    <a class="nav-item nav-link" href="/login">Login</a>
-                </div>
-                <!-- Action -->
-                <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
-                    <a href="/register" class="btn btn-sm btn-primary w-full w-lg-auto">
-                        Registra-se
-                    </a>
-                </div>
-            @endguest
-            @auth
+                <!-- Right navigation -->
+                @auth
                 <!-- Action -->
                 <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
                     <a href="/user/profile" class="btn btn-sm btn-primary w-full w-lg-auto">
                         {{ auth()->user()->name }}
                     </a>
+                    <form action="/logout" method="POST" style="margin-left: 5px">
+                        @csrf
+                        <button class="btn btn-sm btn-secondary w-full w-lg-auto">
+                            Logout
+                        </button>
+                    </form>
                 </div>
-            @endauth
-        </div>
+                @endauth
+            </div>
         </div>
     </nav>
 </body>

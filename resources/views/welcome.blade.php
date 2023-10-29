@@ -1,17 +1,5 @@
 @include('Filme.Components.header')
 
-<div class="container d-flex justify-content-center">
-    <div class="row">
-
-        <form action="{{ route('list.film') }}" method="GET">
-            <div class=".col-sm-6">
-                <input type="search" placeholder="Pesquisa titulo" name="search" class="form-control">
-                <button class="btn btn-primary">Filtrar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
 <p>
 <h1>Listando filmes</h1>
 </p>
