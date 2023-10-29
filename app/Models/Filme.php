@@ -12,4 +12,8 @@ class Filme extends Model
     public function categoria() {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function clientes() {
+        return $this->belongsToMany(User::class);
+    }
 }
