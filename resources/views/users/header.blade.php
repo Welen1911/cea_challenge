@@ -29,23 +29,34 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
-                    <a class="nav-item nav-link active" href="/" aria-current="page">Vendas</a>
-                    <a class="nav-item nav-link" href="{{ route('dashboard.filmes') }}" aria-current="page">Filmes</a>
-                    @auth
-                    <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          Cadastrar
-                        </button>
-                        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{{ route('create.film') }}">Filme</a>
-                          <a class="dropdown-item" href="{{ route('create.category') }}">Categoria</a>
-                        </div>
-                      </div>
-                    @endauth
-                </div>
+                    @if (auth()->user()->tipo_conta == 'admin')
+                        <a class="nav-item nav-link active" href="{{ route('dashboard') }}"
+                            aria-current="page">Vendas</a>
+                        <a class="nav-item nav-link" href="{{ route('dashboard.filmes') }}"
+                            aria-current="page">Filmes</a>
 
-                <!-- Right navigation -->
-                @auth
+                        <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Cadastrar
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('create.film') }}">Filme</a></li>
+                                <li><a class="dropdown-item" href="{{ route('create.category') }}">Categoria</a></li>
+                            </ul>
+                        </div>
+                    @else
+                        <a class="nav-item nav-link" href="{{ route('list.film') }}" aria-current="page">Filmes</a>
+                        <a class="nav-item nav-link active" href="{{ route('dashboard.filmes') }}"
+                            aria-current="page">Biblioteca</a>
+
+                </div>
+                @endif
+
+            </div>
+
+            <!-- Right navigation -->
+            @auth
                 <!-- Action -->
                 <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
                     <a href="/user/profile" class="btn btn-sm btn-primary w-full w-lg-auto">
@@ -58,8 +69,8 @@
                         </button>
                     </form>
                 </div>
-                @endauth
-            </div>
+            @endauth
+        </div>
         </div>
     </nav>
 </body>
