@@ -17,15 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FilmeController::class, 'index'])->name('list.film');
 
-Route::get('/cadastrar_filme', [FilmeController::class, 'create'])->name('create.film');
-Route::post('/cadastrar_filme', [FilmeController::class, 'store'])->name('create.filmStore');
-
-
 Route::get('/show_filme/{id}', [FilmeController::class, 'show'])->name('show.film');
 
 Route::delete('/delete_filme/{id}', [FilmeController::class, 'destroy'])->name('delete.film');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/cadastrar_filme', [FilmeController::class, 'create'])->name('create.film');
+    Route::post('/cadastrar_filme', [FilmeController::class, 'store'])->name('create.filmStore');
+
     Route::get('/atualizar_filme/{id}', [FilmeController::class, 'edit'])->name('edit.film');
     Route::put('/atualizar_filme/{id}', [FilmeController::class, 'update'])->name('update.film');
 
@@ -33,7 +32,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/cadastrar_categoria', [FilmeController::class, 'createCategory'])->name('create.category');
     Route::post('/cadastrar_categoria', [FilmeController::class, 'storeCategory'])->name('store.category');
-
 });
 
 Route::middleware([
@@ -41,5 +39,5 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [UserController::class, 'vendas'])->name('dashboard.vendas');
 });

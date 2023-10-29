@@ -4,18 +4,24 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Filme;
+use App\Models\User;
 use App\Models\Venda;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function dashboard()
+    public function vendas()
     {
         if (auth()->user()->tipo_conta == 'admin') {
-            $filmesDisp = Filme::where('amount', '>', '0')->get();
+            $vendas = Venda::all();
+            foreach ($vendas as $venda) {
+                $filme = Filme::findOrFail($venda->filme_id);
+                $venda->filme = $filme;
 
-            $filmesInd = Filme::where('amount', '=', '0')->get();
-            return view('dashboard', compact('filmesDisp', 'filmesInd'));
+                $user = User::findOrFail($venda->user_id);
+                $venda->user = $user;
+            }
+            return view('users.dashboard.vendas', compact('vendas'));
         } else {
             $vendas = Venda::where('user_id', '=', auth()->user()->id)->get();
             $filmes = [];

@@ -29,7 +29,8 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
-                    <a class="nav-item nav-link" href="/" aria-current="page">Home</a>
+                    <a class="nav-item nav-link active" href="/" aria-current="page">Vendas</a>
+                    <a class="nav-item nav-link" href="" aria-current="page">Filmes</a>
                     @auth
                         <a class="nav-item nav-link" href="{{ route('create.film') }}">Cadastrar</a>
                     @endauth

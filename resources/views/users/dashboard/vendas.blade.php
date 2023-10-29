@@ -24,35 +24,31 @@
 </div>
 
 @if (auth()->user()->tipo_conta == 'admin')
-    <h1>Filmes disponiveis</h1>
+    <h1>Vendas</h1>
     <table class="mt-3 table table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Título</th>
+                <th scope="col">Filme</th>
                 <th scope="col">Quantidade</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Usuário</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($filmesDisp as $filme)
+            @foreach ($vendas as $venda)
                 <tr>
                     <th scope="row">#</th>
-                    <td>{{ $filme->title }}</td>
-                    <td>{{ $filme->amount }}</td>
-                    <td>{{ $filme->price }}</td>
-                    <td>
-                        @auth
-                            <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-primary">Editar</a>
-                        @endauth
-                    </td>
+                    <td>{{ $venda->filme->title }}</td>
+                    <td>{{ $venda->amount }}</td>
+                    <td>{{ $venda->amount * $venda->filme->price }}</td>
+                    <td>{{ $venda->user->name }}</td>
 
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h1>Filmes indisponiveis</h1>
+    {{-- <h1>Filmes indisponiveis</h1>
     <table class="mt-3 table table-striped">
         <thead>
             <tr>
@@ -79,7 +75,7 @@
                 </tr>
             @endforeach
         </tbody>
-    </table>
+    </table> --}}
 @else
     <h1>Seus filmes</h1>
     <table class="mt-3 table table-striped">
