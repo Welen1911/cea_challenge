@@ -13,21 +13,24 @@
                 </div>
                 <p class="lead">{{ $filme->description }}</p>
                 <div class="d-flex">
-                    <form action="{{ route('buy.film', $filme->id) }}" method="post" class="form-group">
-                        @csrf
-                        @method('PUT')
-                        <input class="form-control text-center me-3" type="num"
-                            value="1" style="max-width: 3rem" name="amount" />
-                        <button class="btn btn-primary flex-shrink-0" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Comprar
-                        </button>
-                    </form>
-                    <form action="{{ route('delete.film', $filme->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">Deletar</button>
-                    </form>
+                    @if (auth()->user()->tipo_conta != 'admin')
+                        <form action="{{ route('buy.film', $filme->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <input class="text-center me-3" type="num" value="1"
+                                style="max-width: 3rem" name="amount" />
+                            <button class="btn btn-primary flex-shrink-0" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Comprar
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{ route('delete.film', $filme->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

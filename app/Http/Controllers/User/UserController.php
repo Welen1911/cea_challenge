@@ -17,7 +17,15 @@ class UserController extends Controller
             $filmesInd = Filme::where('amount', '=', '0')->get();
             return view('dashboard', compact('filmesDisp', 'filmesInd'));
         } else {
-            dd('Você não é Admin KKKKKKKKKKKKKKKKKKKKKK');
+            $vendas = Venda::where('user_id', '=', auth()->user()->id)->get();
+            $filmes = [];
+            foreach($vendas as $venda) {
+                $filme = Filme::findOrFail($venda->filme_id);
+                $filme->amount = $venda->amount;
+                array_push($filmes, $filme);
+            }
+
+            return view('dashboard', compact('filmes'));
         }
     }
 

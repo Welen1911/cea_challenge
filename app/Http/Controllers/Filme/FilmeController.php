@@ -35,6 +35,14 @@ class FilmeController extends Controller
         }
         $categorias = Categoria::all();
 
+        foreach ($filmes as $filme) {
+            foreach ($categorias as $categoria) {
+                if ($filme->categoria == $categoria->id) {
+                    $filme->categoria = $categoria->name;
+                }
+            }
+        }
+
         return view('welcome', compact('filmes', 'categorias'));
     }
 
