@@ -30,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/atualizar_filme/{id}', [FilmeController::class, 'update'])->name('update.film');
 
     Route::put('/show_filme/{id}', [UserController::class, 'buy'])->name('buy.film');
+
+    Route::get('/cadastrar_categoria', [FilmeController::class, 'createCategory'])->name('create.category');
+    Route::post('/cadastrar_categoria', [FilmeController::class, 'storeCategory'])->name('store.category');
+
 });
 
 Route::middleware([

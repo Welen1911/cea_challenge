@@ -14,9 +14,9 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">Criar novas categorias</h5>
+                    <p class="card-text">Crie uma categoria de filme que ainda não está listado em nossos sistemas!</p>
+                    <a href="{{ route('create.category') }}" class="btn btn-dark">Criar</a>
                 </div>
             </div>
         </div>

@@ -135,15 +135,16 @@ class FilmeController extends Controller
         return redirect()->route('list.film');
     }
 
-    public function buy(Request $request, string $id)
-    {
-        $filme = Filme::findOrFail($id);
-        if ($filme->amount == 0 || $request->amount > $filme->amount) {
-            dd("Deu errado!");
-        } else {
-            $filme->amount -= $request->amount;
-            $filme->update();
-        }
+    public function createCategory() {
+        return view('Filme.categoria');
+    }
+
+    public function storeCategory(Request $request) {
+        $categoria = new Categoria();
+        $categoria->name = $request->name;
+
+        $categoria->save();
+
         return redirect('/dashboard');
     }
 }
