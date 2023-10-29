@@ -22,18 +22,30 @@ class UserController extends Controller
                 $venda->user = $user;
             }
             return view('users.dashboard.vendas', compact('vendas'));
+
+        } else return redirect()->route('dashboard.filmes');
+    }
+
+    public function filmes()
+    {
+        if (auth()->user()->tipo_conta == 'admin') {
+            $filmesDis = Filme::where('amount', '>', '0')->get();
+            $filmesIndis = Filme::where('amount', '=', '0')->get();
+
+            return view('users.dashboard.filmes', compact('filmesDis', 'filmesIndis'));
         } else {
             $vendas = Venda::where('user_id', '=', auth()->user()->id)->get();
             $filmes = [];
-            foreach($vendas as $venda) {
+            foreach ($vendas as $venda) {
                 $filme = Filme::findOrFail($venda->filme_id);
                 $filme->amount = $venda->amount;
                 array_push($filmes, $filme);
             }
 
-            return view('dashboard', compact('filmes'));
+            return view('users.dashboard.filmes', compact('filmes'));
         }
     }
+
 
     public function buy(Request $request, string $id)
     {

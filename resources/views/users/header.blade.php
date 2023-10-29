@@ -30,9 +30,17 @@
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
                     <a class="nav-item nav-link active" href="/" aria-current="page">Vendas</a>
-                    <a class="nav-item nav-link" href="" aria-current="page">Filmes</a>
+                    <a class="nav-item nav-link" href="{{ route('dashboard.filmes') }}" aria-current="page">Filmes</a>
                     @auth
-                        <a class="nav-item nav-link" href="{{ route('create.film') }}">Cadastrar</a>
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Cadastrar
+                        </button>
+                        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{{ route('create.film') }}">Filme</a>
+                          <a class="dropdown-item" href="{{ route('create.category') }}">Categoria</a>
+                        </div>
+                      </div>
                     @endauth
                 </div>
 

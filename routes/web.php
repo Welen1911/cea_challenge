@@ -40,4 +40,5 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', [UserController::class, 'vendas'])->name('dashboard.vendas');
+    Route::get('/dashboard_filmes', [UserController::class, 'filmes'])->name('dashboard.filmes');
 });
