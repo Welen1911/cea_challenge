@@ -103,8 +103,11 @@
                                 <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-primary">Editar</a>
                             @endauth
                             @auth
-                                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-danger">Deletar
-                                    permanentemente</a>
+                                <form action="{{ route('destroyPerma.film', $filme->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button>Deletar</button>
+                                </form>
                             @endauth
                         </td>
 

@@ -35,7 +35,7 @@ class UserController extends Controller
 
             foreach ($filmes as $filme) {
                 if ($filme->amount > 0 && $filme->isDeleted == null) array_push($filmesDis, $filme);
-                else if($filme->amount == 0 && $filme->isDeleted == null) array_push($filmesIndis, $filme);
+                else if ($filme->amount == 0 && $filme->isDeleted == null) array_push($filmesIndis, $filme);
                 else array_push($filmesDeleted, $filme);
             }
 
@@ -53,6 +53,21 @@ class UserController extends Controller
         }
     }
 
+    public function destroy(string $id)
+    {
+        $vendas = Venda::where('filme_id', '=', $id)->get();
+        foreach ($vendas as $venda) {
+            $venda->delete();
+        }
+
+        $filme = Filme::findOrFail($id);
+        if ($filme->image != "capa_padrao.jpg") {
+            unlink(public_path('images/' . $filme->image));
+        }
+
+        $filme->delete();
+        return redirect('/dashboard')->with('msg', 'Filme deletado junto com suas vendas respectivas!');
+    }
 
     public function buy(Request $request, string $id)
     {
