@@ -26,7 +26,7 @@
 @if (auth()->user()->tipo_conta == 'admin')
     <h1>Filmes disponiveis</h1>
     @if (count($filmesDis) == 0)
-        <p>Não tem filmes sem estoque!</p>
+        <p>Não tem filmes disponiveis!</p>
     @else
         <table class="mt-3 table table-striped">
             <thead>
@@ -109,7 +109,11 @@
                     <td>{{ $filme->price }}</td>
                     <td>
                         @auth
-                            <a href="" class="btn btn-danger">Devolver</a>
+                            <form action="{{ route('devolution.film', $filme->id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger">Devolver</button>
+                            </form>
                         @endauth
                     </td>
 

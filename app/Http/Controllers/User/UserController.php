@@ -64,4 +64,16 @@ class UserController extends Controller
         }
         return redirect('/dashboard');
     }
+
+    public function devolution(string $id) {
+        // $venda = Venda::where('filme_id', '=', $id, 'and', 'user_id', '=', auth()->user()->id)
+        // ->get();
+        // dd($venda->amount);
+        // $filme = Filme::findOrFail($id);
+        // $filme->amount += $venda->amount;
+
+        // $venda->delete();
+
+        // return redirect()->route('dashboard');
+    }
 }
