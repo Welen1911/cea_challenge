@@ -1,5 +1,5 @@
     @csrf
-    <div class="form-group">
+    <div class="form-group row">
         <label for="">Título</label>
         <input type="text" class="form-control" id="" placeholder="ex: Interestrelar" name="title"
             value="{{ $filme->title ?? old('title') }}">

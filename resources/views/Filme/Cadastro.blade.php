@@ -4,3 +4,5 @@
 <form action="{{ route('create.filmStore') }}" method="post" enctype="multipart/form-data">
     @include('Filme.Components.form')
 </form>
+
+@include('Filme.Components.footer') 

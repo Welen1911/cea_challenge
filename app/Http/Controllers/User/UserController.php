@@ -28,10 +28,18 @@ class UserController extends Controller
     public function filmes()
     {
         if (auth()->user()->tipo_conta == 'admin') {
-            $filmesDis = Filme::where('amount', '>', '0')->get();
-            $filmesIndis = Filme::where('amount', '=', '0')->get();
+            $filmes = Filme::all();
+            $filmesDis = [];
+            $filmesIndis = [];
+            $filmesDeleted = [];
 
-            return view('users.dashboard.filmes', compact('filmesDis', 'filmesIndis'));
+            foreach ($filmes as $filme) {
+                if ($filme->amount > 0 && $filme->isDeleted == null) array_push($filmesDis, $filme);
+                else if($filme->amount == 0 && $filme->isDeleted == null) array_push($filmesIndis, $filme);
+                else array_push($filmesDeleted, $filme);
+            }
+
+            return view('users.dashboard.filmes', compact('filmesDis', 'filmesIndis', 'filmesDeleted'));
         } else {
             $vendas = Venda::where('user_id', '=', auth()->user()->id)->get();
             $filmes = [];

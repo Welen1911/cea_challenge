@@ -88,6 +88,42 @@
             </tbody>
         </table>
     @endif
+    <h1>Filmes Parcialmente excluidos</h1>
+    *Esses filmes não podem ser permanentemente excluido pelo fato de que têm historico de compra!
+    @if (count($filmesDeleted) == 0)
+        <p>Não tem filmes disponiveis!</p>
+    @else
+        <table class="mt-3 table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($filmesDeleted as $filme)
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>{{ $filme->title }}</td>
+                        <td>{{ $filme->amount }}</td>
+                        <td>{{ $filme->price }}</td>
+                        <td>
+                            @auth
+                                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-primary">Editar</a>
+                            @endauth
+                            @auth
+                                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-danger">Deletar permanentemente</a>
+                            @endauth
+                        </td>
+
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 @else
     <h1>Seus filmes</h1>
     <table class="mt-3 table table-striped">
