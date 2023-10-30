@@ -54,9 +54,21 @@
             @auth
                 <!-- Action -->
                 <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
-                    <a href="/user/profile" class="btn btn-sm btn-primary w-full w-lg-auto">
-                        {{ auth()->user()->name }}
-                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
+                            <li><form action="/logout" method="POST" style="margin-left: 5px">
+                                @csrf
+                                <button class="btn border-none">
+                                    Logout
+                                </button>
+                            </form></li>
+                        </ul>
+                    </div>
                 </div>
             @endauth
         </div>

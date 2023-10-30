@@ -105,7 +105,7 @@ class FilmeController extends Controller
         $filme->categoria = $request->categoria;
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if ($filme->image != "capa_padrao.jpg") {
+            if ($filme->image != "capa_padrao.jpg" && $filme->image != NULL) {
                 unlink(public_path('images/' . $filme->image));
             }
             $requestImage = $request->image;
