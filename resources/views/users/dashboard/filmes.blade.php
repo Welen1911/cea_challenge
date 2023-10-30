@@ -1,30 +1,11 @@
 @include('users.header')
 <br>
-<div class="container d-flex justify-content-center">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card bg-dark text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Alguns filmes estão sem estoque!!!</h5>
-                    <p class="card-text">Altere a quantidade em estoque para continuar vendendo</p>
-                    <a href="{{ route('create.film') }}" class="btn btn-primary">Ver filmes</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Criar novas categorias</h5>
-                    <p class="card-text">Crie uma categoria de filme que ainda não está listado em nossos sistemas!</p>
-                    <a href="{{ route('create.category') }}" class="btn btn-dark">Criar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @if (auth()->user()->tipo_conta == 'admin')
-    <h1>Filmes disponiveis</h1>
+    <div class="container d-flex justify-content-center">
+        <h1>Filmes disponiveis</h1>
+
+    </div>
     @if (count($filmesDis) == 0)
         <p>Não tem filmes disponiveis!</p>
     @else
@@ -56,7 +37,9 @@
             </tbody>
         </table>
     @endif
-    <h1>Filmes indisponiveis</h1>
+    <div class="container d-flex justify-content-center">
+        <h1>Filmes indisponiveis</h1>
+    </div>
     @if (count($filmesIndis) == 0)
         <p>Não tem filmes sem estoque!</p>
     @else
@@ -88,11 +71,16 @@
             </tbody>
         </table>
     @endif
-    <h1>Filmes Parcialmente excluidos</h1>
-    *Esses filmes não podem ser permanentemente excluido pelo fato de que têm historico de compra!
+    <div class="container d-flex justify-content-center">
+        <h1>Filmes com empaces</h1>
+    </div>
     @if (count($filmesDeleted) == 0)
         <p>Não tem filmes disponiveis!</p>
     @else
+        <p>
+            *Os filmes que são mostrados abaixo precisam de confirmação para de fato serem excluidos, visto que os
+            mesmos constam na tabela de vendas, sendo assim, precisaremos excluir a venda para excluir um filme.
+        </p>
         <table class="mt-3 table table-striped">
             <thead>
                 <tr>
@@ -115,7 +103,8 @@
                                 <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-primary">Editar</a>
                             @endauth
                             @auth
-                                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-danger">Deletar permanentemente</a>
+                                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-danger">Deletar
+                                    permanentemente</a>
                             @endauth
                         </td>
 

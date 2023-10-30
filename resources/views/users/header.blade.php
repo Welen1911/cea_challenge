@@ -29,6 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
+                    <a class="nav-item nav-link active" href="{{ route('list.film') }}" aria-current="page">Home</a>
                     @if (auth()->user()->tipo_conta == 'admin')
                         <a class="nav-item nav-link active" href="{{ route('dashboard') }}"
                             aria-current="page">Vendas</a>
@@ -46,7 +47,6 @@
                             </ul>
                         </div>
                     @else
-                        <a class="nav-item nav-link" href="{{ route('list.film') }}" aria-current="page">Filmes</a>
                         <a class="nav-item nav-link active" href="{{ route('dashboard.filmes') }}"
                             aria-current="page">Biblioteca</a>
 
@@ -66,12 +66,14 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
-                            <li><form action="/logout" method="POST" style="margin-left: 5px">
-                                @csrf
-                                <button class="btn border-none">
-                                    Logout
-                                </button>
-                            </form></li>
+                            <li>
+                                <form action="/logout" method="POST" style="margin-left: 5px">
+                                    @csrf
+                                    <button class="btn border-none">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

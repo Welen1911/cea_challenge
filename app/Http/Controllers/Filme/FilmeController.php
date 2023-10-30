@@ -140,7 +140,7 @@ class FilmeController extends Controller
             $filme->isDeleted = true;
             $filme->update();
 
-            return redirect()->route('list.film')->with('msg', 'Filme deletado!');
+            return redirect()->route('list.film')->with('msg', 'Filme aguarda confirmação para ser permanentemente deletado!');
         }
     }
 
