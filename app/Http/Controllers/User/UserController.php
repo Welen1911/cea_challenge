@@ -66,14 +66,22 @@ class UserController extends Controller
     }
 
     public function devolution(string $id) {
-        // $venda = Venda::where('filme_id', '=', $id, 'and', 'user_id', '=', auth()->user()->id)
-        // ->get();
-        // dd($venda->amount);
-        // $filme = Filme::findOrFail($id);
-        // $filme->amount += $venda->amount;
+        $vendas = Venda::where('filme_id', '=', $id)->get();
 
-        // $venda->delete();
+        foreach($vendas as $venda) {
+            if ($venda->user_id == auth()->user()->id) {
+                $vendas = $venda;
+                break;
+            }
+        }
 
-        // return redirect()->route('dashboard');
+        $filme = Filme::findOrFail($id);
+        $filme->amount += $vendas->amount;
+        
+        $filme->update();
+
+        $vendas->delete();
+
+        return redirect()->route('dashboard');
     }
 }
