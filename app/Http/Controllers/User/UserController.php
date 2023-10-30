@@ -22,7 +22,6 @@ class UserController extends Controller
                 $venda->user = $user;
             }
             return view('users.dashboard.vendas', compact('vendas'));
-
         } else return redirect()->route('dashboard.filmes');
     }
 
@@ -51,7 +50,7 @@ class UserController extends Controller
     {
         $filme = Filme::findOrFail($id);
         if ($filme->amount == 0 || $request->amount > $filme->amount) {
-            dd("Deu errado!");
+            return redirect('/')->with('msg', 'Este filme não está em estoque!');
         } else {
             $venda = new Venda();
             $venda->filme_id = $filme->id;
@@ -62,13 +61,14 @@ class UserController extends Controller
             $filme->amount -= $request->amount;
             $filme->update();
         }
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('msg', 'Filme comprado!');
     }
 
-    public function devolution(string $id) {
+    public function devolution(string $id)
+    {
         $vendas = Venda::where('filme_id', '=', $id)->get();
 
-        foreach($vendas as $venda) {
+        foreach ($vendas as $venda) {
             if ($venda->user_id == auth()->user()->id) {
                 $vendas = $venda;
                 break;
@@ -77,11 +77,11 @@ class UserController extends Controller
 
         $filme = Filme::findOrFail($id);
         $filme->amount += $vendas->amount;
-        
+
         $filme->update();
 
         $vendas->delete();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('msg', 'Filme Devolvido com sucesso!');
     }
 }

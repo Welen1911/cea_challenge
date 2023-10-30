@@ -76,7 +76,7 @@ class FilmeController extends Controller
 
         $filme->save();
 
-        return redirect()->route('list.film');
+        return redirect()->route('list.film')->with('msg', 'Filme adicionado!');
     }
 
     public function show(string $id)
@@ -119,7 +119,7 @@ class FilmeController extends Controller
 
         $filme->update();
 
-        return redirect()->route('list.film');
+        return redirect()->route('list.film')->with('msg', 'Filme atualizado!');
     }
 
     public function destroy(string $id)
@@ -132,7 +132,7 @@ class FilmeController extends Controller
 
         $filme->delete();
 
-        return redirect()->route('list.film');
+        return redirect()->route('list.film')->with('msg', 'Filme deletado!');
     }
 
     public function createCategory() {
@@ -145,6 +145,6 @@ class FilmeController extends Controller
 
         $categoria->save();
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('msg', 'Categoria criada com sucesso!');
     }
 }
