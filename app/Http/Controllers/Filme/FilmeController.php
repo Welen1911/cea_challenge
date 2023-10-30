@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Filme;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Filme;
+use App\Models\Venda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,7 +32,7 @@ class FilmeController extends Controller
                 } else return redirect()->route('list.film');
             }
         } else {
-            $filmes = Filme::all();
+            $filmes = Filme::where('isDeleted', '=', null)->get();
         }
         $categorias = Categoria::all();
 
@@ -125,21 +126,31 @@ class FilmeController extends Controller
     public function destroy(string $id)
     {
         $filme = Filme::findOrFail($id);
+        $venda = Venda::where('filme_id', '=', $id)->get();
 
-        if ($filme->image != "capa_padrao.jpg") {
-            unlink(public_path('images/' . $filme->image));
+        if (count($venda) == 0) {
+            if ($filme->image != "capa_padrao.jpg") {
+                unlink(public_path('images/' . $filme->image));
+            }
+
+            $filme->delete();
+
+            return redirect()->route('list.film')->with('msg', 'Filme deletado!');
+        } else {
+            $filme->isDeleted = true;
+            $filme->update();
+
+            return redirect()->route('list.film')->with('msg', 'Filme deletado!');
         }
-
-        $filme->delete();
-
-        return redirect()->route('list.film')->with('msg', 'Filme deletado!');
     }
 
-    public function createCategory() {
+    public function createCategory()
+    {
         return view('Filme.categoria');
     }
 
-    public function storeCategory(Request $request) {
+    public function storeCategory(Request $request)
+    {
         $categoria = new Categoria();
         $categoria->name = $request->name;
 

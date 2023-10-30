@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('filmes', function (Blueprint $table) {
-            $table->boolean('isDeleted')->nullable();
+            $table->string('isDeleted')->nullable();
         });
     }
 
@@ -22,8 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('filmes', function (Blueprint $table) {
-            $table->boolean('isDeleted')->nullable()
-            ->onDelete('cascade');
+            $table->string('isDeleted')->nullable()
+            ->onDelete();
         });
     }
 };
