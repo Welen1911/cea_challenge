@@ -9,6 +9,8 @@ use App\Models\Venda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\returnSelf;
+
 class FilmeController extends Controller
 {
     public function index()
@@ -19,7 +21,7 @@ class FilmeController extends Controller
         if ($search) {
             $filmes = Filme::where([
                 ['title', 'like', '%' . $search . '%']
-            ])->get();
+            ])->where('isDeleted', '=', null)->where('amount', '>', 0)->get();
             if (count($filmes) == 0) {
                 $categoria = Categoria::where([[
                     'name', 'like', '%' . $search . '%'
@@ -28,11 +30,11 @@ class FilmeController extends Controller
                 if ($categoria) {
                     $filmes = Filme::where([[
                         'categoria', '=', $categoria->id
-                    ]])->get();
-                } else return redirect()->route('list.film');
+                    ]])->where('isDeleted', '=', null)->where('amount', '>', 0)->get();
+                }
             }
         } else {
-            $filmes = Filme::where('isDeleted', '=', null)->get();
+            $filmes = Filme::where('isDeleted', '=', null)->where('amount', '>', 0)->get();
         }
         $categorias = Categoria::all();
 
@@ -49,35 +51,39 @@ class FilmeController extends Controller
 
     public function create()
     {
-        $categorias = Categoria::all();
-        return view('Filme.cadastro', compact('categorias'));
+        if (auth()->user()->tipo_conta == 'admin') {
+            $categorias = Categoria::all();
+            return view('Filme.cadastro', compact('categorias'));
+        } else return redirect('/');
     }
 
     public function store(Request $request)
     {
-        $filme = new Filme();
+        if (auth()->user()->tipo_conta == 'admin') {
+            $filme = new Filme();
 
-        $filme->title = $request->title;
-        $filme->description = $request->description;
-        $filme->amount = $request->amount;
-        $filme->price = $request->price;
-        $filme->categoria = $request->categoria;
+            $filme->title = $request->title;
+            $filme->description = $request->description;
+            $filme->amount = $request->amount;
+            $filme->price = $request->price;
+            $filme->categoria = $request->categoria;
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $requestImage = $request->image;
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $requestImage = $request->image;
 
-            $imageName = md5($requestImage->getclientOriginalName() . strtotime("now")) . "." . $request->image->getClientOriginalExtension();
+                $imageName = md5($requestImage->getclientOriginalName() . strtotime("now")) . "." . $request->image->getClientOriginalExtension();
 
-            $request->image->move(public_path('/images'), $imageName);
+                $request->image->move(public_path('/images'), $imageName);
 
-            $filme->image = $imageName;
-        } else {
-            $filme->image = "capa_padrao.jpg";
-        }
+                $filme->image = $imageName;
+            } else {
+                $filme->image = "capa_padrao.jpg";
+            }
 
-        $filme->save();
+            $filme->save();
 
-        return redirect()->route('list.film')->with('msg', 'Filme adicionado!');
+            return redirect()->route('list.film')->with('msg', 'Filme adicionado!');
+        } else return redirect('/');
     }
 
     public function show(string $id)
@@ -89,73 +95,84 @@ class FilmeController extends Controller
 
     public function edit(string $id)
     {
-        $filme = Filme::findOrFail($id);
-        $categorias = Categoria::all();
-
-        return view('Filme.Edit', compact('filme', 'categorias'));
+        if (auth()->user()->tipo_conta == 'admin') {
+            $filme = Filme::findOrFail($id);
+            $categorias = Categoria::all();
+            return view('Filme.Edit', compact('filme', 'categorias'));
+        } else return redirect('/');
     }
 
     public function update(string $id, Request $request)
     {
-        $filme = Filme::findOrFail($id);
+        if (auth()->user()->tipo_conta == 'admin') {
+            $filme = Filme::findOrFail($id);
 
-        $filme->title = $request->title;
-        $filme->description = $request->description;
-        $filme->amount = $request->amount;
-        $filme->price = $request->price;
-        $filme->categoria = $request->categoria;
+            $filme->title = $request->title;
+            $filme->description = $request->description;
+            $filme->amount = $request->amount;
+            $filme->price = $request->price;
+            $filme->categoria = $request->categoria;
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if ($filme->image != "capa_padrao.jpg" && $filme->image != NULL) {
-                unlink(public_path('images/' . $filme->image));
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                if ($filme->image != "capa_padrao.jpg" && $filme->image != NULL) {
+                    unlink(public_path('images/' . $filme->image));
+                }
+                $requestImage = $request->image;
+
+                $imageName = md5($requestImage->getclientOriginalName() . strtotime("now")) . "." . $request->image->getClientOriginalExtension();
+
+                $request->image->move(public_path('/images'), $imageName);
+
+                $filme->image = $imageName;
             }
-            $requestImage = $request->image;
 
-            $imageName = md5($requestImage->getclientOriginalName() . strtotime("now")) . "." . $request->image->getClientOriginalExtension();
+            $filme->update();
 
-            $request->image->move(public_path('/images'), $imageName);
-
-            $filme->image = $imageName;
-        }
-
-        $filme->update();
-
-        return redirect()->route('list.film')->with('msg', 'Filme atualizado!');
+            return redirect()->route('list.film')->with('msg', 'Filme atualizado!');
+        } else return redirect('/');
     }
 
     public function destroy(string $id)
     {
-        $filme = Filme::findOrFail($id);
-        $venda = Venda::where('filme_id', '=', $id)->get();
+        if (auth()->user()->tipo_conta == 'admin') {
 
-        if (count($venda) == 0) {
-            if ($filme->image != "capa_padrao.jpg") {
-                unlink(public_path('images/' . $filme->image));
+            $filme = Filme::findOrFail($id);
+            $venda = Venda::where('filme_id', '=', $id)->get();
+
+            if (count($venda) == 0) {
+                if ($filme->image != "capa_padrao.jpg") {
+                    unlink(public_path('images/' . $filme->image));
+                }
+
+                $filme->delete();
+
+                return redirect()->route('list.film')->with('msg', 'Filme deletado!');
+            } else {
+                $filme->isDeleted = true;
+                $filme->update();
+
+                return redirect()->route('list.film')->with('msg', 'Filme aguarda confirmação para ser permanentemente deletado!');
             }
-
-            $filme->delete();
-
-            return redirect()->route('list.film')->with('msg', 'Filme deletado!');
-        } else {
-            $filme->isDeleted = true;
-            $filme->update();
-
-            return redirect()->route('list.film')->with('msg', 'Filme aguarda confirmação para ser permanentemente deletado!');
-        }
+        } else return redirect('/');
     }
 
     public function createCategory()
     {
-        return view('Filme.categoria');
+        if (auth()->user()->tipo_conta == 'admin') {
+            return view('Filme.categoria');
+        } else return redirect('/');
     }
 
     public function storeCategory(Request $request)
     {
-        $categoria = new Categoria();
-        $categoria->name = $request->name;
+        if (auth()->user()->tipo_conta == 'admin') {
 
-        $categoria->save();
+            $categoria = new Categoria();
+            $categoria->name = $request->name;
 
-        return redirect('/dashboard')->with('msg', 'Categoria criada com sucesso!');
+            $categoria->save();
+
+            return redirect('/dashboard')->with('msg', 'Categoria criada com sucesso!');
+        } else return redirect('/');
     }
 }
