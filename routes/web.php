@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cadastrar_categoria', [FilmeController::class, 'createCategory'])->name('create.category');
     Route::post('/cadastrar_categoria', [FilmeController::class, 'storeCategory'])->name('store.category');
 
+    Route::put('/restore/{id}', [UserController::class, 'restore'])->name('restore.film');
     Route::delete('/destroy_permanent/{id}', [UserController::class, 'destroy'])->name('destroyPerma.film');
 });
 

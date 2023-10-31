@@ -100,9 +100,12 @@
                         <td>{{ $filme->price }}</td>
                         <td>
                             @auth
-                                <a href="{{ route('edit.film', $filme->id) }}" class="btn btn-primary">Editar</a>
-                            @endauth
-                            @auth
+                                <form action="{{ route('restore.film', $filme->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button>Restaurar</button>
+                                </form>
+
                                 <form action="{{ route('destroyPerma.film', $filme->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')

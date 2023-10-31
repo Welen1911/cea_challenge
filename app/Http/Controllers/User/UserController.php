@@ -53,6 +53,19 @@ class UserController extends Controller
         }
     }
 
+    public function restore(string $id)
+    {
+        $filme = Filme::findOrFail($id);
+        if ($filme->isDeleted) {
+            $filme->isDeleted = null;
+            $filme->update();
+
+            return redirect('/')->with('msg', 'Filme restaurado com sucesso!');
+        }
+
+        return redirect('/');
+    }
+
     public function destroy(string $id)
     {
         $vendas = Venda::where('filme_id', '=', $id)->get();
