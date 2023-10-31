@@ -3,7 +3,6 @@
 ### Requisitos
 PHP 8, Composer, Nodejs
 
-### Primeiro
 Na pasta do projeto, rode o comando:
 ```sh
 composer install
