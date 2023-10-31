@@ -1,5 +1,5 @@
 @include('users.header')
-
+@include('Filme.Components.messages')
 <h1>Criar categoria</h1>
 
 <div class="col-md-6 offset-md-3">

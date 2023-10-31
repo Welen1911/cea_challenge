@@ -1,9 +1,5 @@
 @include('Filme.Components.header')
-@if (session('msg'))
-    <div class="alert alert-primary d-flex justify-content-center" role="alert">
-        {{ session('msg') }}
-    </div>
-@endif
+@include('Filme.Components.messages')
 <p>
     <h1>Listando filmes</h1>
 </p>

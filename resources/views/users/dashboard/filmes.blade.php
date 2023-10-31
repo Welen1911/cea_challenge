@@ -1,4 +1,6 @@
 @include('users.header')
+@include('Filme.Components.messages')
+
 <br>
 
 @if (auth()->user()->tipo_conta == 'admin')

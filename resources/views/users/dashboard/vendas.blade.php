@@ -1,4 +1,6 @@
 @include('users.header')
+@include('Filme.Components.messages')
+
 <br><br>
 <div class="container d-flex justify-content-center mt-2">
     <h1>Vendas</h1>

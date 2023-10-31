@@ -79,7 +79,7 @@ class UserController extends Controller
         }
 
         $filme->delete();
-        return redirect('/dashboard')->with('msg', 'Filme deletado junto com suas vendas respectivas!');
+        return redirect('/dashboard')->with('msg', 'Filme deletado junto com suas respectivas vendas!');
     }
 
     public function buy(Request $request, string $id)
@@ -97,7 +97,7 @@ class UserController extends Controller
             $filme->amount -= $request->amount;
             $filme->update();
         }
-        return redirect('/dashboard')->with('msg', 'Filme comprado!');
+        return redirect('/dashboard_filmes')->with('msg', 'Filme comprado!');
     }
 
     public function devolution(string $id)
@@ -118,6 +118,6 @@ class UserController extends Controller
 
         $vendas->delete();
 
-        return redirect()->route('dashboard')->with('msg', 'Filme Devolvido com sucesso!');
+        return redirect()->route('dashboard.filmes')->with('msg', 'Filme Devolvido com sucesso!');
     }
 }
