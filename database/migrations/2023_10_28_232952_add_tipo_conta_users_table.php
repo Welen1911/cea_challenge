@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('tipo_conta')->onDelete('cascade');
+            $table->dropColumn('tipo_conta');
         });
     }
 };

@@ -53,7 +53,12 @@ class FilmeController extends Controller
     {
         if (auth()->user()->tipo_conta == 'admin') {
             $categorias = Categoria::all();
-            return view('Filme.cadastro', compact('categorias'));
+            if (count($categorias) > 0) {
+                return view('Filme.cadastro', compact('categorias'));
+            } else {
+                return redirect('/cadastrar_categoria')->with('msg', 'Antes de adicionar um filme, preciso que adicione uma categoria!');
+            }
+
         } else return redirect('/');
     }
 

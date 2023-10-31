@@ -22,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('filmes', function (Blueprint $table) {
-            $table->string('isDeleted')->nullable()
-            ->onDelete();
+            $table->dropColumn('isDeleted');
         });
     }
 };
