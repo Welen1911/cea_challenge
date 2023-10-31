@@ -3,9 +3,9 @@
 <h1>Criar categoria</h1>
 
 
-<form action="{{ route('store.category') }}" method="post">
+<form class="form-control" action="{{ route('store.category') }}" method="post">
     @csrf
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="">Categoria</label>
         <input type="text" class="form-control" id="" placeholder="ex: Espacial" name="name">
     </div>
