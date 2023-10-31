@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
-    <title>Document</title>
+    <title>@yield('title')</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
-                    <a class="nav-item nav-link active" href="#" aria-current="page">Home</a>
+                    <a class="nav-item nav-link active" href="{{ route('list.film') }}" aria-current="page">Home</a>
                     <a class="nav-item nav-link" href="/dashboard" aria-current="page">Dashboard</a>
                 </div>
                 <div class="navbar-nav mx-lg-auto">
