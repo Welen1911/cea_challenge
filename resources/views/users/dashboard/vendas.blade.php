@@ -1,6 +1,6 @@
 @include('users.header')
-<br>
-<div class="container d-flex justify-content-center">
+<br><br>
+<div class="container d-flex justify-content-center mt-2">
     <h1>Vendas</h1>
 </div>
 <hr>
@@ -23,7 +23,6 @@
                     <td>{{ $venda->amount }}</td>
                     <td>{{ $venda->amount * $venda->filme->price }}</td>
                     <td>{{ $venda->user->name }}</td>
-
                 </tr>
             @endforeach
         </tbody>

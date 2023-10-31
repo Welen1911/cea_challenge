@@ -49,7 +49,7 @@ class UserController extends Controller
                 array_push($filmes, $filme);
             }
 
-            return view('users.dashboard.filmes', compact('filmes'));
+            return view('users.dashboard.filmesUser', compact('filmes'));
         }
     }
 
