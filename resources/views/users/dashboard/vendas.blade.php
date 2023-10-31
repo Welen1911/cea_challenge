@@ -5,28 +5,32 @@
 </div>
 <hr>
 @if (auth()->user()->tipo_conta == 'admin')
-    <table class="mt-3 table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Filme</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Usuário</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($vendas as $venda)
+    @if (count($vendas) == 0)
+        <p>Ainda não vendemos nada!</p>
+    @else
+        <table class="mt-3 table table-striped">
+            <thead>
                 <tr>
-                    <th scope="row">#</th>
-                    <td>{{ $venda->filme->title }}</td>
-                    <td>{{ $venda->amount }}</td>
-                    <td>{{ $venda->amount * $venda->filme->price }}</td>
-                    <td>{{ $venda->user->name }}</td>
+                    <th scope="col">#</th>
+                    <th scope="col">Filme</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Usuário</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($vendas as $venda)
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>{{ $venda->filme->title }}</td>
+                        <td>{{ $venda->amount }}</td>
+                        <td>{{ $venda->amount * $venda->filme->price }}</td>
+                        <td>{{ $venda->user->name }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 @endif
 
 @include('Filme.Components.footer')
