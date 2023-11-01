@@ -32,35 +32,35 @@
                 @else
                     <a class="nav-item nav-link active" href="{{ route('dashboard.filmes') }}"
                         aria-current="page">Biblioteca</a>
-
+                @endif
             </div>
-            @endif
 
-        </div>
 
-        <!-- Right navigation -->
-        @auth
-            <!-- Action -->
-            <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        {{ auth()->user()->name }}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
-                        <li>
-                            <form action="/logout" method="POST" style="margin-left: 5px">
-                                @csrf
-                                <button class="btn border-none">
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+
+            <!-- Right navigation -->
+            @auth
+                <!-- Action -->
+                <div class="d-flex align-items-lg-center mt-3 mt-lg-0">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/user/profile">Perfil</a></li>
+                            <li>
+                                <form action="/logout" method="POST" style="margin-left: 5px">
+                                    @csrf
+                                    <button class="btn border-none">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        @endauth
+            @endauth
+        </div>
     </div>
     </div>
 </nav>

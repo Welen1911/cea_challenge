@@ -21,10 +21,7 @@
                     <input type="search" placeholder="Pesquisa titulo" name="search" class="form-control">
             </div>
             </form>
-        </div>
-
-        <!-- Right navigation -->
-        @guest
+            @guest
             <div class="navbar-nav ms-lg-4">
                 <a class="nav-item nav-link" href="/login">Login</a>
             </div>
@@ -57,6 +54,10 @@
                 </div>
             </div>
         @endauth
+        </div>
+
+        <!-- Right navigation -->
+
     </div>
     </div>
 </nav>
