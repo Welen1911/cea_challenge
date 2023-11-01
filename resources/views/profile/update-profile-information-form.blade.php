@@ -81,6 +81,11 @@
                 @endif
             @endif
         </div>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="name" value="Tipo da conta" />
+            <x-input id="tipo_conta" type="text" class="mt-1 block w-full" wire:model="state.tipo_conta" autocomplete="tipo_conta" required/>
+            <x-input-error for="name" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">
