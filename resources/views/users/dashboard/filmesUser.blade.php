@@ -1,6 +1,13 @@
-@include('users.header')
-@include('Filme.Components.messages')
+@extends('Filme.layout.template')
 
+@section('title', 'Vendas')
+
+@section('header')
+    @include('users.header')
+@endsection
+
+@section('content')
+    @include('Filme.Components.messages')
 <br>
 
 @if (auth()->user()->tipo_conta != 'admin')
@@ -46,5 +53,4 @@
     @endif
     <br>
 @endif
-
-@include('Filme.Components.footer')
+@endsection

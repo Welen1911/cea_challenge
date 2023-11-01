@@ -1,4 +1,12 @@
+@extends('Filme.layout.template')
+
+@section('title', 'Cadastrar filme')
+
+@section('header')
 @include('users.header')
+@endsection
+
+@section('content')
 <h1>cadastro de filme</h1>
 
 <div class="col-md-6 offset-md-3">
@@ -6,3 +14,4 @@
         @include('Filme.Components.form')
     </form>
 </div>
+@endsection

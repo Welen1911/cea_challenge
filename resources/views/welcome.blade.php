@@ -1,4 +1,13 @@
+@extends('Filme.layout.template')
+
+@section('title', 'Index - Filmes')
+
+@section('header')
 @include('Filme.Components.header')
+@endsection
+
+@section('content')
+
 @include('Filme.Components.messages')
 <p>
     <h1>Listando filmes</h1>
@@ -33,4 +42,4 @@
         @endif
     </div>
 </div>
-@include('Filme.Components.footer')
+@endsection

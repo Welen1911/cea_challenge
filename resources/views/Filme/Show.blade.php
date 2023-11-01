@@ -1,4 +1,12 @@
+@extends('Filme.layout.template')
+
+@section('title', $filme->title)
+
+@section('header')
 @include('Filme.Components.header')
+@endsection
+
+@section('content')
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -51,4 +59,4 @@
     </div>
 </section>
 <div style="padding: 15px"></div>
-@include('Filme.Components.footer')
+@endsection

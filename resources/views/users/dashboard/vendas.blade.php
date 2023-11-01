@@ -1,6 +1,13 @@
-@include('users.header')
-@include('Filme.Components.messages')
+@extends('Filme.layout.template')
 
+@section('title', 'Vendas')
+
+@section('header')
+@include('users.header')
+@endsection
+
+@section('content')
+@include('Filme.Components.messages')
 <br><br>
 <div class="container d-flex justify-content-center mt-2">
     <h1>Vendas</h1>
@@ -34,5 +41,4 @@
         </table>
     @endif
 @endif
-
-@include('Filme.Components.footer')
+@endsection
