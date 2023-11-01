@@ -13,8 +13,8 @@
     @if (auth()->user()->tipo_conta == 'admin')
         <div class="container d-flex justify-content-center mt-2">
             <h1>Filmes disponiveis</h1>
-
         </div>
+        <hr>
         @if (count($filmesDis) == 0)
             <div class="container d-flex justify-content-center mt-2">
                 <p>Não tem filmes disponiveis!</p>
@@ -50,10 +50,9 @@
             <br>
         @endif
         <div class="container d-flex justify-content-center mt-2">
-            <br>
             <h1>Filmes indisponiveis</h1>
-            <br>
         </div>
+        <hr>
         @if (count($filmesIndis) == 0)
             <div class="container d-flex justify-content-center mt-2">
                 <p>Não tem filmes sem estoque!</p>
@@ -92,6 +91,7 @@
         <div class="container d-flex justify-content-center mt-2">
             <h1>Filmes com empaces</h1>
         </div>
+        <hr>
         @if (count($filmesDeleted) == 0)
             <div class="container d-flex justify-content-center mt-2">
                 <p>Não tem filmes disponiveis!</p>

@@ -14,6 +14,7 @@
         <div class="container d-flex justify-content-center mt-2">
             <h1>Seus filmes</h1>
         </div>
+        <hr>
         @if (count($filmes) == 0)
             <br>
             <div class="container d-flex justify-content-center mt-2">
