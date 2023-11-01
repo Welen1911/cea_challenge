@@ -9,7 +9,7 @@
 @section('content')
 
     @include('Filme.Components.messages')
-    <div class="container d-flex justify-content-center mt-2">
+    <div class="container d-flex justify-content-center mt-4">
         <h1>Listando filmes</h1>
     </div>
     <div class="container d-flex justify-content-center">
@@ -25,7 +25,7 @@
         @endphp
         <div class="row">
             @if (count($filmes) == 0)
-                <p>A lista de filmes disponiveis está vazia!</p>
+                <p class="mt-2">A lista de filmes disponiveis está vazia!</p>
             @else
                 @foreach ($filmes as $filme)
                     <div class="col-sm-{{ $espaco }}">
