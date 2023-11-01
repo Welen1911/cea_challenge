@@ -3,42 +3,44 @@
 @section('title', 'Vendas')
 
 @section('header')
-@include('users.header')
+    @include('users.header')
 @endsection
 
 @section('content')
-@include('Filme.Components.messages')
-<br><br>
-<div class="container d-flex justify-content-center mt-2">
-    <h1>Vendas</h1>
-</div>
-<hr>
-@if (auth()->user()->tipo_conta == 'admin')
-    @if (count($vendas) == 0)
-        <p>Ainda não vendemos nada!</p>
-    @else
-        <table class="mt-3 table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Filme</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Usuário</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($vendas as $venda)
+    @include('Filme.Components.messages')
+    <br><br>
+    <div class="container d-flex justify-content-center mt-2">
+        <h1>Vendas</h1>
+    </div>
+    <hr>
+    @if (auth()->user()->tipo_conta == 'admin')
+        @if (count($vendas) == 0)
+            <div class="container d-flex justify-content-center mt-2">
+                <p>Ainda não vendemos nada!</p>
+            </div>
+        @else
+            <table class="mt-3 table table-striped">
+                <thead>
                     <tr>
-                        <th scope="row">#</th>
-                        <td>{{ $venda->filme->title }}</td>
-                        <td>{{ $venda->amount }}</td>
-                        <td>{{ $venda->amount * $venda->filme->price }}</td>
-                        <td>{{ $venda->user->name }}</td>
+                        <th scope="col">#</th>
+                        <th scope="col">Filme</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Usuário</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($vendas as $venda)
+                        <tr>
+                            <th scope="row">#</th>
+                            <td>{{ $venda->filme->title }}</td>
+                            <td>{{ $venda->amount }}</td>
+                            <td>{{ $venda->amount * $venda->filme->price }}</td>
+                            <td>{{ $venda->user->name }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     @endif
-@endif
 @endsection

@@ -8,7 +8,9 @@
 
 @section('content')
     @include('Filme.Components.messages')
-    <h1>Criar categoria</h1>
+    <div class="container d-flex justify-content-center mt-2">
+        <h1>Criar categoria</h1>
+    </div>
 
     <div class="col-md-6 offset-md-3">
         <form class="form-control" action="{{ route('store.category') }}" method="post">

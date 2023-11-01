@@ -16,9 +16,9 @@
 
         </div>
         @if (count($filmesDis) == 0)
-            <br>
-            <p>Não tem filmes disponiveis!</p>
-            <br>
+            <div class="container d-flex justify-content-center mt-2">
+                <p>Não tem filmes disponiveis!</p>
+            </div>
         @else
             <table class="mt-3 table table-striped">
                 <thead>
@@ -55,7 +55,9 @@
             <br>
         </div>
         @if (count($filmesIndis) == 0)
-            <p>Não tem filmes sem estoque!</p>
+            <div class="container d-flex justify-content-center mt-2">
+                <p>Não tem filmes sem estoque!</p>
+            </div>
         @else
             <table class="mt-3 table table-striped">
                 <thead>
@@ -91,12 +93,18 @@
             <h1>Filmes com empaces</h1>
         </div>
         @if (count($filmesDeleted) == 0)
-            <p>Não tem filmes disponiveis!</p>
+            <div class="container d-flex justify-content-center mt-2">
+                <p>Não tem filmes disponiveis!</p>
+            </div>
         @else
-            <p>
-                *Os filmes que são mostrados abaixo precisam de confirmação para de fato serem excluidos, visto que os
-                mesmos constam na tabela de vendas, ao clicar em deletar você também excluirá as vendas relacionas a esse filme.
-            </p>
+            <div class="container d-flex justify-content-center mt-2">
+                <p>
+                    *Os filmes que são mostrados abaixo precisam de confirmação para de fato serem excluidos, visto que os
+                    mesmos constam na tabela de vendas, ao clicar em deletar você também excluirá as vendas relacionas a
+                    esse
+                    filme.
+                </p>
+            </div>
             <table class="mt-3 table table-striped">
                 <thead>
                     <tr>
