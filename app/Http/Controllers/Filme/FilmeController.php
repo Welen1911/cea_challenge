@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Filme;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoriaStore;
+use App\Http\Requests\FilmeStore;
 use App\Models\Categoria;
 use App\Models\Filme;
 use App\Models\Venda;
@@ -62,7 +64,7 @@ class FilmeController extends Controller
         } else return redirect('/');
     }
 
-    public function store(Request $request)
+    public function store(FilmeStore $request)
     {
         if (auth()->user()->tipo_conta == 'admin') {
             $filme = new Filme();
@@ -107,7 +109,7 @@ class FilmeController extends Controller
         } else return redirect('/');
     }
 
-    public function update(string $id, Request $request)
+    public function update(string $id, FilmeStore $request)
     {
         if (auth()->user()->tipo_conta == 'admin') {
             $filme = Filme::findOrFail($id);
@@ -168,7 +170,7 @@ class FilmeController extends Controller
         } else return redirect('/');
     }
 
-    public function storeCategory(Request $request)
+    public function storeCategory(CategoriaStore $request)
     {
         if (auth()->user()->tipo_conta == 'admin') {
 
