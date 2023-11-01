@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+@include('Filme.Components.errors')
     <div class="container d-flex justify-content-center mt-2">
         <h1>cadastro de filme</h1>
     </div>

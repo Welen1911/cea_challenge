@@ -8,6 +8,7 @@
 
 @section('content')
     @include('Filme.Components.messages')
+    @include('Filme.Components.errors')
     <div class="container d-flex justify-content-center mt-2">
         <h1>Criar categoria</h1>
     </div>
